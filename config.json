@@ -1,33 +1,49 @@
 {
   "site": {
-    "name": "Small Space Setup",
-    "tagline": "Home office & WFH gear guides for apartments, rentals, and shared rooms",
-    "baseUrl": "https://mura2556.github.io/small-space-home-office",
-    "description": "Buying guides for small-space and apartment-friendly home office gear: desks, storage, cable management, chairs, and accessories for renters and small rooms.",
-    "author": "***REDACTED***"
+    "name": "Small Space Home Office",
+    "description": "Buying guides and setup advice for home offices in small apartments, rentals, and shared rooms.",
+    "url": "https://mura2556.github.io/small-space-home-office",
+    "author": "Small Space Home Office"
   },
   "ads": {
-    "enabled": false,
     "network": "google-adsense",
-    "publisherId": "PLACEHOLDER-ADSENSE-PUBLISHER-ID",
-    "slotId": "PLACEHOLDER-ADSENSE-SLOT-ID"
+    "publisherId": "ca-pub-PLACEHOLDER_PUBLISHER_ID",
+    "slotId": "PLACEHOLDER_SLOT_ID",
+    "enabled": false,
+    "note": "Set enabled to true and fill in real IDs only once the board has a real AdSense (or alternative network) account. See the honesty check in the TEM-18 comment about *.github.io eligibility before enabling."
   },
-  "affiliate": {
-    "amazon": {
-      "enabled": false,
-      "tag": "PLACEHOLDER-AMAZON-TAG-20",
-      "baseUrl": "https://www.amazon.com/dp/PRODUCT_ASIN?tag={tag}"
-    },
-    "shareasale": {
-      "enabled": false,
-      "affiliateId": "PLACEHOLDER-SHAREASALE-ID",
-      "baseUrl": "https://www.shareasale.com/r.cfm?b=PLACEHOLDER&u={affiliateId}&m=PLACEHOLDER&urllink=PRODUCT_PATH"
-    }
+  "aads": {
+    "network": "A-ADS",
+    "adUnitId": "PLACEHOLDER_AADS_UNIT_ID",
+    "accountEmail": "PLACEHOLDER_AADS_ACCOUNT_EMAIL",
+    "placement": "footer",
+    "enabled": false,
+    "note": "TEM-73: no A-ADS publisher account exists yet. This agent has no browser-automation or connected-email tool, and no Paperclip connector exists for A-ADS, so it cannot complete the interactive signup/verification itself. Once a human (or a browser-capable agent) creates the account and hands back the ad-unit ID and account email, paste them here, set enabled to true, and rebuild. Renders only in the footer -- never inside article content."
+  },
+  "brave": {
+    "creatorChannelStatus": "not_registered",
+    "tipNoteEnabled": false,
+    "walletAddress": "",
+    "note": "TEM-73: Brave Creator registration/verification not completed -- same tooling gap as aads.note. Do not add a self-custody wallet address here until the board supplies one (see TEM-70/TEM-72 custody boundary); never a custodial payout provider link."
   },
   "searchConsole": {
-    "verificationTag": ""
+    "verificationTag": "",
+    "note": "Paste the content value from Google Search Console's HTML tag verification method here (e.g. 'abc123...'). Leave empty and the meta tag is omitted from the build."
   },
-  "indexNow": {
-    "key": "d48282f9e8eea57f4f9a8f9d95c3194c"
+  "affiliates": {
+    "amazon": {
+      "program": "Amazon Associates",
+      "baseUrl": "https://www.amazon.com/s?k=REPLACE",
+      "tagParam": "tag",
+      "tag": "PLACEHOLDER-AMAZON-TAG-20",
+      "note": "Real search/product URLs and a real Associates tag must replace these placeholders once the account exists. Do not fill in a real tag without an approved account."
+    },
+    "shareasale": {
+      "program": "ShareASale",
+      "baseUrl": "https://www.shareasale.com/r.cfm",
+      "affiliateIdParam": "u",
+      "affiliateId": "PLACEHOLDER-SHAREASALE-ID",
+      "note": "Real merchant tracking links and a real affiliate ID must replace these placeholders once the account and merchant approvals exist."
+    }
   }
 }
