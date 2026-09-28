@@ -71,7 +71,15 @@ function mdToHtml(md) {
     text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
     text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     text = text.replace(/\*(.+?)\*/g, "<em>$1</em>");
-    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, label, href) => {
+      if (href.startsWith("/")) {
+        let filePath = href;
+        if (filePath.endsWith("/")) filePath += "index.html";
+        else if (!path.extname(filePath)) filePath += "/index.html";
+        href = `${config.site.baseUrl}${filePath}`;
+      }
+      return `<a href="${href}">${label}</a>`;
+    });
     return text;
   }
 
@@ -169,13 +177,13 @@ function layout({ title, description, bodyHtml, canonicalPath }) {
 </head>
 <body>
   <header>
-    <a href="/"><strong>${config.site.name}</strong></a>
+    <a href="${config.site.baseUrl}/index.html"><strong>${config.site.name}</strong></a>
     <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-      <a href="/disclosure">Disclosure</a>
-      <a href="/privacy">Privacy</a>
+      <a href="${config.site.baseUrl}/index.html">Home</a>
+      <a href="${config.site.baseUrl}/about/index.html">About</a>
+      <a href="${config.site.baseUrl}/contact/index.html">Contact</a>
+      <a href="${config.site.baseUrl}/disclosure/index.html">Disclosure</a>
+      <a href="${config.site.baseUrl}/privacy/index.html">Privacy</a>
     </nav>
   </header>
   ${adSlot}
@@ -184,7 +192,7 @@ function layout({ title, description, bodyHtml, canonicalPath }) {
   </main>
   ${adSlot}
   <footer>
-    <p>&copy; ${new Date().getFullYear()} ${config.site.name}. Affiliate links may be present — see our <a href="/disclosure">disclosure</a>.</p>
+    <p>&copy; ${new Date().getFullYear()} ${config.site.name}. Affiliate links may be present — see our <a href="${config.site.baseUrl}/disclosure/index.html">disclosure</a>.</p>
   </footer>
 </body>
 </html>
@@ -220,7 +228,7 @@ function build() {
       title: data.title,
       description: data.description || "",
       bodyHtml,
-      canonicalPath: `/articles/${slug}/`,
+      canonicalPath: `/articles/${slug}/index.html`,
     });
     fs.mkdirSync(path.join(OUT, "articles", slug), { recursive: true });
     fs.writeFileSync(path.join(OUT, "articles", slug, "index.html"), html);
@@ -235,7 +243,7 @@ function build() {
     const { data, content } = parseFrontMatter(raw);
     const slug = file.replace(/\.md$/, "");
     const bodyHtml = `<h1>${data.title}</h1>${mdToHtml(content)}`;
-    const html = layout({ title: data.title, description: data.description || "", bodyHtml, canonicalPath: `/${slug}/` });
+    const html = layout({ title: data.title, description: data.description || "", bodyHtml, canonicalPath: `/${slug}/index.html` });
     fs.mkdirSync(path.join(OUT, slug), { recursive: true });
     fs.writeFileSync(path.join(OUT, slug, "index.html"), html);
   }
@@ -244,19 +252,26 @@ function build() {
   const listHtml = articles
     .map(
       (a) =>
-        `<li><a href="/articles/${a.slug}/">${a.title}</a><br><small>${a.description || ""}</small></li>`
+        `<li><a href="${config.site.baseUrl}/articles/${a.slug}/index.html">${a.title}</a><br><small>${a.description || ""}</small></li>`
     )
     .join("\n");
   const indexHtml = layout({
     title: "Home",
     description: config.site.description,
     bodyHtml: `<h1>${config.site.name}</h1><p>${config.site.tagline}</p><ul>${listHtml}</ul>`,
-    canonicalPath: "/",
+    canonicalPath: "/index.html",
   });
   fs.writeFileSync(path.join(OUT, "index.html"), indexHtml);
 
   // sitemap.xml
-  const urls = ["/", "/about/", "/contact/", "/privacy/", "/disclosure/", ...articles.map((a) => `/articles/${a.slug}/`)];
+  const urls = [
+    "/index.html",
+    "/about/index.html",
+    "/contact/index.html",
+    "/privacy/index.html",
+    "/disclosure/index.html",
+    ...articles.map((a) => `/articles/${a.slug}/index.html`),
+  ];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
     .map((u) => `  <url><loc>${config.site.baseUrl}${u}</loc></url>`)
     .join("\n")}\n</urlset>\n`;
@@ -267,8 +282,8 @@ function build() {
     .map(
       (a) => `  <item>
     <title>${a.title}</title>
-    <link>${config.site.baseUrl}/articles/${a.slug}/</link>
-    <guid>${config.site.baseUrl}/articles/${a.slug}/</guid>
+    <link>${config.site.baseUrl}/articles/${a.slug}/index.html</link>
+    <guid>${config.site.baseUrl}/articles/${a.slug}/index.html</guid>
     <description>${a.description || ""}</description>
     <pubDate>${new Date(a.date).toUTCString()}</pubDate>
   </item>`

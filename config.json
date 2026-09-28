@@ -2,7 +2,7 @@
   "site": {
     "name": "Small Space Setup",
     "tagline": "Home office & WFH gear guides for apartments, rentals, and shared rooms",
-    "baseUrl": "https://mura2556.github.io/small-space-home-office",
+    "baseUrl": "https://cdn.jsdelivr.net/gh/mura2556/small-space-home-office@main/docs",
     "description": "Buying guides for small-space and apartment-friendly home office gear: desks, storage, cable management, chairs, and accessories for renters and small rooms.",
     "author": "Small Space Setup"
   },
