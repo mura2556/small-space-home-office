@@ -1,0 +1,1 @@
+# ads.txt intentionally empty: no ad network approved yet (config.ads.enabled=false)
