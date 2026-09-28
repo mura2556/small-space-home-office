@@ -1,0 +1,33 @@
+{
+  "site": {
+    "name": "Small Space Setup",
+    "tagline": "Home office & WFH gear guides for apartments, rentals, and shared rooms",
+    "baseUrl": "https://mura2556.github.io/small-space-home-office",
+    "description": "Buying guides for small-space and apartment-friendly home office gear: desks, storage, cable management, chairs, and accessories for renters and small rooms.",
+    "author": "Small Space Setup"
+  },
+  "ads": {
+    "enabled": false,
+    "network": "google-adsense",
+    "publisherId": "PLACEHOLDER-ADSENSE-PUBLISHER-ID",
+    "slotId": "PLACEHOLDER-ADSENSE-SLOT-ID"
+  },
+  "affiliate": {
+    "amazon": {
+      "enabled": false,
+      "tag": "PLACEHOLDER-AMAZON-TAG-20",
+      "baseUrl": "https://www.amazon.com/dp/PRODUCT_ASIN?tag={tag}"
+    },
+    "shareasale": {
+      "enabled": false,
+      "affiliateId": "PLACEHOLDER-SHAREASALE-ID",
+      "baseUrl": "https://www.shareasale.com/r.cfm?b=PLACEHOLDER&u={affiliateId}&m=PLACEHOLDER&urllink=PRODUCT_PATH"
+    }
+  },
+  "searchConsole": {
+    "verificationTag": ""
+  },
+  "indexNow": {
+    "key": "d48282f9e8eea57f4f9a8f9d95c3194c"
+  }
+}
